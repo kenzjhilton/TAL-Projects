@@ -1,0 +1,185 @@
+# ----- IMPORT LIBRARIES 
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+# ----- CHECK WORKING DIRECTORY 
+print(os.getcwd()) # Check current directory 
+os.chdir(r'D:/iCloudDrive/2025/TAL/MPC/VCSA/Code/Python')
+print(os.listdir()) # List files 
+
+# ----- LOAD DATASETS 
+summary = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="Summary")
+pl_usd = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="PL USD")
+bs_usd = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="BS USD")
+cf_usd = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="CF USD")
+funding = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="Detail Invest")
+dscr = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="USD-DSCR")
+payrole = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="Payroll")
+wc = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="WC parameters")
+turnover = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="turnover")
+export = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="break down export")
+cogs = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="cogs")
+tax = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="tax")
+
+# ----- PREVIEW DATASET 
+print(summary.head(),(summary.shape))
+print(pl_usd.head(),(pl_usd.shape))
+print(bs_usd.head(),(bs_usd.shape))
+print(cf_usd.head(),(cf_usd.shape))
+print(funding.head(),(funding.shape))
+print(dscr.head(),(dscr.shape))
+print(payrole.head(),(payrole.shape))
+print(wc.head(),(wc.shape))
+print(turnover.head(),(turnover.shape))
+print(export.head(),(export.shape))
+print(cogs.head(),(cogs.shape))
+print(tax.head(),(tax.shape))
+
+# -----  STEP 1: PROFITABILITY ANALYSIS - Averages 
+# Preview P & L statement
+print(pl_usd.head(38),(pl_usd.shape))
+
+print(pl_usd.iloc[4:5, :14]) # Helper to identify columns & rows
+
+# # ----- .1. Turnover 
+print( pl_usd.iloc[4:5, :14])
+avg_turnover = pl_usd.iloc[4:5, 1:14].mean().mean() 
+print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
+
+# ----- .2. COGS
+avg_cogs = pl_usd.iloc[6:7, 1:14].mean().mean() 
+print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
+
+# ----- .3. Industrial Margin 
+avg_im = pl_usd.iloc[8:9, 1:14].mean().mean()
+print(f"Average Industry Margin PY: ${avg_im:,.2f}")
+
+# ----- .4. EBITDA 
+avg_ebitda = pl_usd.iloc[18:19, 1:14].mean().mean()
+print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
+
+# ----- .5. NET PROFIT 
+avg_nprof = pl_usd.iloc[34:35, 1:14].mean().mean()
+print(f"Average Profit PY: ${avg_nprof:,.2f}")
+
+# ----- STEP 2: BREAKDOWN REPORT ANALYSIS 
+print((export.head),(export.shape))
+print(export.iloc[167:168, :44])
+avg_product_sold = export.iloc[167:168, 2:44].mean().mean()
+print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")  
+
+# ----- STEP 3: KEY FINANCIAL AVERAGES 
+print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")
+print(f"Average Profit PY: ${avg_nprof:,.2f}")  # FIXED: was avg_prof
+print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
+print(f"Average Industry Margin PY: ${avg_im:,.2f}")
+print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
+print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
+
+
+# ----- STEP 4: Efficiency Ratios 
+#.1. Inventory Turnover 
+
+print(export.iloc[171:172, 2:42]) # Helper to identify inventory figures
+avg_invent = export.iloc[171:172, 2:42].mean().mean() # Find mean inventory 
+print(f"Average Inventory: ${avg_invent:,.2f}") # print average inventory
+
+invent_turn = (avg_cogs / avg_invent) # formula for inventory efficiency 
+print(f"Inventory Turnover Ratio: {invent_turn:,.2f}") # Inventory turnover ratio
+
+#.2. Asset turnover 
+
+print(summary.iloc[10:15, 1:16]) # Helper 
+
+# Fixed assets
+
+print(summary.iloc[10:11, :16])
+avg_fixed_asset = summary.iloc[10:11, 3:16].mean().mean()
+print(f"Average Fixed Asset: ${avg_fixed_asset:,.2f}")
+
+# Current Assets 
+print(summary.iloc[11:12, :16])
+avg_current_assets = summary.iloc[11:12, 3:16].mean().mean()
+print(f"Average Current Assets: ${avg_current_assets:,.2f}")
+
+# Total assets 
+avg_total_assets = avg_fixed_asset + avg_current_assets
+print(f"Average Total Assets: ${avg_total_assets:,.2f}")  # FIXED: spacing
+
+# Asset Turnover 
+avg_asset_turnover = avg_turnover / avg_total_assets
+print(f"Average Asset Turnover Ratio: {avg_asset_turnover:,.5f}")
+
+# ----- STEP 5: Liquidity Ratios 
+print(summary.iloc[13:14, 3:16])
+avg_liabilities = summary.iloc[13:14, 3:16].mean().mean()
+print(f"Total Average Liabilities: ${avg_liabilities:,.2f}")  # FIXED: spacing
+liquid_ratio = avg_current_assets / avg_liabilities
+print(f"Current Liquidity Ratio: {liquid_ratio:,.2f}")
+
+# ----- STEP 6: Coverage Ratios 
+print(summary.iloc[139:140, 4:14])
+int_cov_ratio = summary.iloc[139:140, 4:14].mean().mean()
+print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
+
+
+# Return on Assets
+roa = avg_nprof / avg_total_assets 
+print(f"Average Return on Asset Ratio: {roa:,.10f}")
+
+print("\n" + "="*50)
+print("AMX FINANCIAL ANALYSIS SUMMARY")
+print("="*50)
+print(f"Average Annual Turnover: ${avg_turnover:,.2f}")
+print(f"Average Net Profit: ${avg_nprof:,.2f}")
+print(f"Asset Turnover Ratio: {avg_asset_turnover:.5f}")
+print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")
+print(f"Average Profit PY: ${avg_nprof:,.2f}")  # FIXED: was avg_prof
+print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
+print(f"Average Industry Margin PY: ${avg_im:,.2f}")
+print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
+print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
+print(f"Liquidity Ratio: {liquid_ratio:.2f}")
+print(f"Interest Coverage: {int_cov_ratio:.2f}x")
+print(f"Return on Assets: {roa*100:.4f}%")
+
+print("="*50)
+
+
+# -----  STEP 7: KEY FINANCIAL AVERAGES - VISUALISATIONS 
+# Overview
+c1 = ['Turnover', 'COGS', 'Industrial Margin', 'EBITDA', 'Net Profit']
+v1 = [avg_turnover, avg_cogs, avg_im, avg_ebitda, avg_nprof]
+
+plt.bar(c1, v1, color=['green', 'red', 'grey', 'orange', 'blue'])
+plt.title('AMX Financial Metrics Overview', fontsize=16, fontweight='bold')
+plt.ylabel('Amount (USD)', fontsize=12)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# Ratios
+# Create 3 separate subplots to show all ratios properly
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
+
+# Liquidity Ratio
+ax1.bar(['Liquidity'], [liquid_ratio], color='green')
+ax1.set_title('Liquidity Ratio')
+ax1.set_ylabel('Ratio')
+
+# Interest Coverage (on its own scale)
+ax2.bar(['Interest Coverage'], [int_cov_ratio], color='red')
+ax2.set_title('Interest Coverage')
+ax2.set_ylabel('Times')
+
+# Return on Assets
+ax3.bar(['ROA'], [roa*100], color='yellow')
+ax3.set_title('Return on Assets (%)')
+ax3.set_ylabel('Percentage')
+
+plt.tight_layout()
+plt.show()
