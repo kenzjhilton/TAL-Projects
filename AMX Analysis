@@ -1,15 +1,18 @@
 # ----- IMPORT LIBRARIES 
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
+print("="*100)
+
 # ----- CHECK WORKING DIRECTORY 
 print(os.getcwd()) # Check current directory 
 os.chdir(r'D:/iCloudDrive/2025/TAL/MPC/VCSA/Code/Python')
 print(os.listdir()) # List files 
+
+print("="*100)
 
 # ----- LOAD DATASETS 
 summary = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="Summary")
@@ -25,6 +28,8 @@ export = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="break down export")
 cogs = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="cogs")
 tax = pd.read_excel("AMX MOTHER FILE.xlsx", sheet_name="tax")
 
+print("="*100)
+
 # ----- PREVIEW DATASET 
 print(summary.head(),(summary.shape))
 print(pl_usd.head(),(pl_usd.shape))
@@ -39,147 +44,392 @@ print(export.head(),(export.shape))
 print(cogs.head(),(cogs.shape))
 print(tax.head(),(tax.shape))
 
-# -----  STEP 1: PROFITABILITY ANALYSIS - Averages 
+print("="*100)
+
+# -----  STEP 1: PROFITABILITY ANALYSIS
+
 # Preview P & L statement
 print(pl_usd.head(38),(pl_usd.shape))
 
-print(pl_usd.iloc[4:5, :14]) # Helper to identify columns & rows
-
-# # ----- .1. Turnover 
-print( pl_usd.iloc[4:5, :14])
+# ----- .1. Turnover 
+print(pl_usd.iloc[4:5, :14]) # Helper
+# Values - FIXED: Extract as array, not DataFrame
+t_turnover = pl_usd.iloc[4, 1:14].values.astype(float)  # Changed from iloc[4:5, 1:14]
+print("Turnover values shape:", t_turnover.shape)
+print("Turnover values:", t_turnover)
+# Averages
 avg_turnover = pl_usd.iloc[4:5, 1:14].mean().mean() 
 print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
 
+print("="*100)
+
 # ----- .2. COGS
+print(pl_usd.iloc[6:7, :14]) # Helper 
+# Values - FIXED: Extract as array
+t_cogs = pl_usd.iloc[6, 1:14].values.astype(float)  # Changed from iloc[6:7, 1:14]
+print("COGS values shape:", t_cogs.shape)
+print("COGS values:", t_cogs)
+# Averages
 avg_cogs = pl_usd.iloc[6:7, 1:14].mean().mean() 
 print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
 
+print("="*100)
+
 # ----- .3. Industrial Margin 
+print(pl_usd.iloc[8:9, :14]) # Helper
+# Values - FIXED: Extract as array
+t_im = pl_usd.iloc[8, 1:14].values.astype(float)  # Changed from iloc[8:9, 1:14]
+print("Industrial Margin values shape:", t_im.shape)
+print("Industrial Margin values:", t_im)
+# Averages
 avg_im = pl_usd.iloc[8:9, 1:14].mean().mean()
 print(f"Average Industry Margin PY: ${avg_im:,.2f}")
 
+print("="*100)
+
 # ----- .4. EBITDA 
+print(pl_usd.iloc[18:19, :14]) # Helper 
+# Values - FIXED: Extract as array
+t_ebitda = pl_usd.iloc[18, 1:14].values.astype(float)  # Changed from iloc[18:19, 1:14]
+print("EBITDA values shape:", t_ebitda.shape)
+print("EBITDA values:", t_ebitda)
+# Averages
 avg_ebitda = pl_usd.iloc[18:19, 1:14].mean().mean()
 print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
 
+print("="*100)
+
 # ----- .5. NET PROFIT 
+print(pl_usd.iloc[34:35, :14]) # Helper 
+# Values - FIXED: Extract as array
+t_nprof = pl_usd.iloc[34, 1:14].values.astype(float)  # Changed from iloc[34:35, 1:14]
+print("Net Profit values shape:", t_nprof.shape)
+print("Net Profit values:", t_nprof)
+# Averages
 avg_nprof = pl_usd.iloc[34:35, 1:14].mean().mean()
 print(f"Average Profit PY: ${avg_nprof:,.2f}")
 
+print("="*100)
+
 # ----- STEP 2: BREAKDOWN REPORT ANALYSIS 
 print((export.head),(export.shape))
-print(export.iloc[167:168, :44])
+print(export.iloc[167:168, :44]) # Helper 
+# Values - FIXED: Extract as array and match the length
+t_prod_sold = export.iloc[167, 2:15].values.astype(float)  # Adjusted to match 13 columns
+print("Products Sold values shape:", t_prod_sold.shape)
+print("Products Sold values:", t_prod_sold)
+# Averages 
 avg_product_sold = export.iloc[167:168, 2:44].mean().mean()
 print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")  
 
-# ----- STEP 3: KEY FINANCIAL AVERAGES 
-print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")
-print(f"Average Profit PY: ${avg_nprof:,.2f}")  # FIXED: was avg_prof
-print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
-print(f"Average Industry Margin PY: ${avg_im:,.2f}")
-print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
-print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
+print("="*100)
 
-
-# ----- STEP 4: Efficiency Ratios 
+# ----- STEP 3: Efficiency Ratios 
 #.1. Inventory Turnover 
-
 print(export.iloc[171:172, 2:42]) # Helper to identify inventory figures
+# Values - FIXED: Extract as array and match the length
+t_invent = export.iloc[171, 2:15].values.astype(float)  # Adjusted to match 13 columns
+print("Inventory values shape:", t_invent.shape)
+print("Inventory values:", t_invent)
+# Averages
 avg_invent = export.iloc[171:172, 2:42].mean().mean() # Find mean inventory 
 print(f"Average Inventory: ${avg_invent:,.2f}") # print average inventory
-
+# Inventory Turnover Average
 invent_turn = (avg_cogs / avg_invent) # formula for inventory efficiency 
 print(f"Inventory Turnover Ratio: {invent_turn:,.2f}") # Inventory turnover ratio
 
+print("="*100)
+
 #.2. Asset turnover 
-
 print(summary.iloc[10:15, 1:16]) # Helper 
-
 # Fixed assets
-
-print(summary.iloc[10:11, :16])
 avg_fixed_asset = summary.iloc[10:11, 3:16].mean().mean()
 print(f"Average Fixed Asset: ${avg_fixed_asset:,.2f}")
-
 # Current Assets 
 print(summary.iloc[11:12, :16])
 avg_current_assets = summary.iloc[11:12, 3:16].mean().mean()
 print(f"Average Current Assets: ${avg_current_assets:,.2f}")
-
 # Total assets 
 avg_total_assets = avg_fixed_asset + avg_current_assets
 print(f"Average Total Assets: ${avg_total_assets:,.2f}")  # FIXED: spacing
-
 # Asset Turnover 
 avg_asset_turnover = avg_turnover / avg_total_assets
 print(f"Average Asset Turnover Ratio: {avg_asset_turnover:,.5f}")
 
-# ----- STEP 5: Liquidity Ratios 
+print("="*100)
+
+# ----- STEP 4: Liquidity Ratios 
 print(summary.iloc[13:14, 3:16])
 avg_liabilities = summary.iloc[13:14, 3:16].mean().mean()
 print(f"Total Average Liabilities: ${avg_liabilities:,.2f}")  # FIXED: spacing
+
 liquid_ratio = avg_current_assets / avg_liabilities
 print(f"Current Liquidity Ratio: {liquid_ratio:,.2f}")
 
-# ----- STEP 6: Coverage Ratios 
+print("="*100)
+
+# ----- STEP 5: Coverage Ratios 
 print(summary.iloc[139:140, 4:14])
 int_cov_ratio = summary.iloc[139:140, 4:14].mean().mean()
 print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
-
 
 # Return on Assets
 roa = avg_nprof / avg_total_assets 
 print(f"Average Return on Asset Ratio: {roa:,.10f}")
 
+# ----- STEP 6: AMX FINANCIAL ANALYSIS SUMMARY
 print("\n" + "="*50)
 print("AMX FINANCIAL ANALYSIS SUMMARY")
 print("="*50)
-print(f"Average Annual Turnover: ${avg_turnover:,.2f}")
-print(f"Average Net Profit: ${avg_nprof:,.2f}")
-print(f"Asset Turnover Ratio: {avg_asset_turnover:.5f}")
-print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")
-print(f"Average Profit PY: ${avg_nprof:,.2f}")  # FIXED: was avg_prof
-print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
-print(f"Average Industry Margin PY: ${avg_im:,.2f}")
-print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
-print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
-print(f"Liquidity Ratio: {liquid_ratio:.2f}")
-print(f"Interest Coverage: {int_cov_ratio:.2f}x")
-print(f"Return on Assets: {roa*100:.4f}%")
+print("AMX FINANCIAL ANALYSIS - Key Values")
+
+print("Turnover values:", t_turnover)
+print("COGS values:", t_cogs)
+print("Industrial Margin values:", t_im)
+print("EBITDA values:", t_ebitda)
+print("Net Profit values:", t_nprof)
+print("Products Sold values:", t_prod_sold)
+print("Inventory values:", t_invent)
 
 print("="*50)
 
+print("AMX FINANCIAL ANALYSIS - Key Averages")
+print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
+print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
+print(f"Average Industry Margin PY: ${avg_im:,.2f}")
+print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
+print(f"Average Profit PY: ${avg_nprof:,.2f}")
+print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")  
+print(f"Average Inventory: ${avg_invent:,.2f}") # print average inventory
+print(f"Inventory Turnover Ratio: {invent_turn:,.2f}") # Inventory turnover ratio
+print(f"Average Fixed Asset: ${avg_fixed_asset:,.2f}")
+print(f"Average Current Assets: ${avg_current_assets:,.2f}")
+print(f"Average Total Assets: ${avg_total_assets:,.2f}")  # FIXED: spacing
+print(f"Average Asset Turnover Ratio: {avg_asset_turnover:,.5f}")
 
-# -----  STEP 7: KEY FINANCIAL AVERAGES - VISUALISATIONS 
-# Overview
-c1 = ['Turnover', 'COGS', 'Industrial Margin', 'EBITDA', 'Net Profit']
-v1 = [avg_turnover, avg_cogs, avg_im, avg_ebitda, avg_nprof]
+print("="*50)
 
-plt.bar(c1, v1, color=['green', 'red', 'grey', 'orange', 'blue'])
-plt.title('AMX Financial Metrics Overview', fontsize=16, fontweight='bold')
-plt.ylabel('Amount (USD)', fontsize=12)
-plt.xticks(rotation=45)
+print("AMX FINANCIAL ANALYSIS - Ratios")
+print(f"Total Average Liabilities: ${avg_liabilities:,.2f}")  # FIXED: spacing
+print(f"Current Liquidity Ratio: {liquid_ratio:,.2f}")
+print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
+print(f"Average Return on Asset Ratio: {roa:,.10f}")
+
+
+
+# -----  STEP 7: COMPREHENSIVE FINANCIAL VISUALIZATIONS (UPDATED)
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
+
+# Top Left: Financial Metrics Overview
+metrics = ['Turnover', 'COGS', 'Industrial Margin', 'EBITDA', 'Net Profit']
+metric_values = [avg_turnover, avg_cogs, avg_im, avg_ebitda, avg_nprof]
+
+ax1.bar(metrics, metric_values, color=['green', 'red', 'grey', 'orange', 'blue'])
+ax1.set_title('AMX Financial Metrics Overview', fontsize=14, fontweight='bold')
+ax1.set_ylabel('Amount (USD)', fontsize=11)
+ax1.tick_params(axis='x', rotation=45, labelsize=9)
+
+# Top Right: Key Ratios
+ratios = ['Liquidity', 'Interest Coverage', 'ROA (%)']
+ratio_values = [liquid_ratio*100, int_cov_ratio, roa/100]
+colors = ['green', 'red', 'yellow']
+
+ax2.bar(ratios, ratio_values, color=colors)
+ax2.set_title('Key Financial Ratios', fontsize=14, fontweight='bold')
+ax2.set_ylabel('Ratio/Percentage', fontsize=11)
+ax2.tick_params(axis='x', rotation=45, labelsize=9)
+
+# Bottom Left: Turnover Over Time
+years = list(range(2007, 2020))
+
+ax3.plot(years, t_turnover, color="green", marker='o', linewidth=2)
+ax3.set_title("AMX Turnover Trend", fontsize=14, fontweight='bold')
+ax3.set_xlabel("Years", fontsize=11)
+ax3.set_ylabel("Turnover USD", fontsize=11)
+ax3.tick_params(axis='x', rotation=45, labelsize=9)
+ax3.grid(True, alpha=0.3)
+
+# Bottom Right: Multi-Variable Financial Trends
+ax4.plot(years, t_turnover, color='green', marker='o', linewidth=1.5, label='Turnover')
+ax4.plot(years, t_cogs, color='red', marker='s', linewidth=1.5, label='COGS')
+ax4.plot(years, t_ebitda, color='orange', marker='d', linewidth=1.5, label='EBITDA')
+ax4.plot(years, t_nprof, color='purple', marker='v', linewidth=1.5, label='Net Profit')
+
+ax4.set_title('Key Financial Metrics Trends', fontsize=14, fontweight='bold')
+ax4.set_xlabel('Years', fontsize=11)
+ax4.set_ylabel('Amount (USD)', fontsize=11)
+ax4.legend(fontsize=9)
+ax4.grid(True, alpha=0.3)
+ax4.tick_params(axis='x', rotation=45, labelsize=9)
+
 plt.tight_layout()
 plt.show()
 
-# Ratios
-# Create 3 separate subplots to show all ratios properly
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
 
-# Liquidity Ratio
-ax1.bar(['Liquidity'], [liquid_ratio], color='green')
-ax1.set_title('Liquidity Ratio')
-ax1.set_ylabel('Ratio')
 
-# Interest Coverage (on its own scale)
-ax2.bar(['Interest Coverage'], [int_cov_ratio], color='red')
-ax2.set_title('Interest Coverage')
-ax2.set_ylabel('Times')
+# ----- STEP 8: COMPREHENSIVE TREND ANALYSIS
 
-# Return on Assets
-ax3.bar(['ROA'], [roa*100], color='yellow')
-ax3.set_title('Return on Assets (%)')
-ax3.set_ylabel('Percentage')
+# Define years and check data consistency
+years = list(range(2007, 2020))  # 13 years to match your data
+
+# Advanced Multi-Variable Analysis
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
+
+# Top Left: Revenue vs Costs with Margin Fill
+ax1.plot(years, t_turnover, 'g-o', linewidth=2.5, label='Turnover')
+ax1.plot(years, t_cogs, 'r-s', linewidth=2.5, label='COGS')
+ax1.fill_between(years, t_turnover, t_cogs, alpha=0.3, color='lightgreen', label='Gross Margin')
+ax1.set_title('Revenue vs Cost Analysis', fontsize=14, fontweight='bold')
+ax1.set_ylabel('Amount (USD)', fontsize=11)
+ax1.legend()
+ax1.grid(True, alpha=0.3)
+
+# Top Right: Profitability Stack
+ax2.plot(years, t_im, 'b-^', linewidth=2.5, label='Industrial Margin')
+ax2.plot(years, t_ebitda, 'orange', marker='d', linewidth=2.5, label='EBITDA')
+ax2.plot(years, t_nprof, 'purple', marker='v', linewidth=2.5, label='Net Profit')
+ax2.set_title('Profitability Metrics Evolution', fontsize=14, fontweight='bold')
+ax2.set_ylabel('Amount (USD)', fontsize=11)
+ax2.legend()
+ax2.grid(True, alpha=0.3)
+
+# Bottom Left: Operational Metrics
+ax3.plot(years, t_prod_sold, 'brown', marker='<', linewidth=2.5, label='Products Sold')
+ax3.plot(years, t_invent, 'pink', marker='>', linewidth=2.5, label='Inventory')
+ax3.set_title('Operational Performance', fontsize=14, fontweight='bold')
+ax3.set_xlabel('Years', fontsize=11)
+ax3.set_ylabel('Amount (USD)', fontsize=11)
+ax3.legend()
+ax3.grid(True, alpha=0.3)
+
+# Bottom Right: Profit Margins (Percentages)
+gross_margin_pct = ((t_turnover - t_cogs) / t_turnover) * 100
+net_margin_pct = (t_nprof / t_turnover) * 100
+
+ax4.plot(years, gross_margin_pct, 'green', marker='o', linewidth=2.5, label='Gross Margin %')
+ax4.plot(years, net_margin_pct, 'purple', marker='s', linewidth=2.5, label='Net Margin %')
+ax4.set_title('Profit Margin Trends', fontsize=14, fontweight='bold')
+ax4.set_xlabel('Years', fontsize=11)
+ax4.set_ylabel('Percentage (%)', fontsize=11)
+ax4.legend()
+ax4.grid(True, alpha=0.3)
+
+# Format all x-axes
+for ax in [ax1, ax2, ax3, ax4]:
+    ax.tick_params(axis='x', rotation=45, labelsize=9)
 
 plt.tight_layout()
 plt.show()
+
+# ----- STEP 9: GROWTH ANALYSIS & SUMMARY INSIGHTS
+
+# Growth Rate Analysis
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
+
+# Left: Year-over-Year Growth Rates
+turnover_growth = np.diff(t_turnover) / t_turnover[:-1] * 100
+cogs_growth = np.diff(t_cogs) / t_cogs[:-1] * 100
+profit_growth = np.diff(t_nprof) / t_nprof[:-1] * 100
+growth_years = years[1:]  # One less year due to diff calculation
+
+ax1.plot(growth_years, turnover_growth, 'g-o', linewidth=2.5, label='Turnover Growth %')
+ax1.plot(growth_years, cogs_growth, 'r-s', linewidth=2.5, label='COGS Growth %')
+ax1.plot(growth_years, profit_growth, 'purple', marker='d', linewidth=2.5, label='Net Profit Growth %')
+ax1.axhline(y=0, color='black', linestyle='--', alpha=0.7, label='Zero Growth')
+
+ax1.set_title('Year-over-Year Growth Rates', fontsize=14, fontweight='bold')
+ax1.set_xlabel('Years', fontsize=11)
+ax1.set_ylabel('Growth Rate (%)', fontsize=11)
+ax1.legend()
+ax1.grid(True, alpha=0.3)
+ax1.tick_params(axis='x', rotation=45, labelsize=9)
+
+# Right: Normalized Performance (Base Year = 100)
+turnover_normalized = (t_turnover / t_turnover[0]) * 100
+cogs_normalized = (t_cogs / t_cogs[0]) * 100
+ebitda_normalized = (t_ebitda / t_ebitda[0]) * 100
+profit_normalized = (t_nprof / t_nprof[0]) * 100
+
+ax2.plot(years, turnover_normalized, 'g-o', linewidth=2.5, label='Turnover (Indexed)')
+ax2.plot(years, cogs_normalized, 'r-s', linewidth=2.5, label='COGS (Indexed)')
+ax2.plot(years, ebitda_normalized, 'orange', marker='^', linewidth=2.5, label='EBITDA (Indexed)')
+ax2.plot(years, profit_normalized, 'purple', marker='d', linewidth=2.5, label='Net Profit (Indexed)')
+ax2.axhline(y=100, color='black', linestyle='--', alpha=0.7, label='Base Year (100)')
+
+ax2.set_title('Normalized Performance Comparison', fontsize=14, fontweight='bold')
+ax2.set_xlabel('Years', fontsize=11)
+ax2.set_ylabel('Index (Base Year = 100)', fontsize=11)
+ax2.legend()
+ax2.grid(True, alpha=0.3)
+ax2.tick_params(axis='x', rotation=45, labelsize=9)
+
+plt.tight_layout()
+plt.show()
+
+
+
+
+# ----- STEP 10: COMPREHENSIVE SUMMARY STATISTICS CHATGPT
+print("\n" + "="*80)
+print("COMPREHENSIVE AMX FINANCIAL ANALYSIS SUMMARY")
+print("="*80)
+
+# Key Performance Metrics
+metrics = {
+    'Turnover': t_turnover,
+    'COGS': t_cogs,
+    'Industrial Margin': t_im,
+    'EBITDA': t_ebitda,
+    'Net Profit': t_nprof
+}
+
+print("\n📊 PERFORMANCE TRENDS ANALYSIS")
+print("-" * 50)
+for name, values in metrics.items():
+    total_growth = ((values[-1] / values[0]) - 1) * 100
+    trend_slope = np.polyfit(range(len(values)), values, 1)[0]
+    avg_value = np.mean(values)
+    volatility = np.std(values) / avg_value * 100  # Coefficient of variation
+    
+    print(f"\n{name.upper()}:")
+    print(f"  📈 Total Growth ({years[0]}-{years[-1]}): {total_growth:+.2f}%")
+    print(f"  📊 Average Annual Value: ${avg_value:,.2f}")
+    print(f"  🎯 Trend Direction: {'📈 Rising' if trend_slope > 0 else '📉 Declining'} (${trend_slope:,.2f}/year)")
+    print(f"  🎢 Volatility: {volatility:.2f}%")
+    print(f"  🏆 Peak: ${np.max(values):,.2f} ({years[np.argmax(values)]})")
+    print(f"  📉 Trough: ${np.min(values):,.2f} ({years[np.argmin(values)]})")
+
+# Financial Health Indicators
+print(f"\n💼 FINANCIAL HEALTH INDICATORS")
+print("-" * 50)
+print(f"Current Liquidity Ratio: {liquid_ratio:.2f} ({'✅ Healthy' if liquid_ratio > 1.2 else '⚠️ Monitor' if liquid_ratio > 1.0 else '🚨 Critical'})")
+print(f"Interest Coverage: {int_cov_ratio:.2f}x ({'✅ Strong' if int_cov_ratio > 2.5 else '⚠️ Adequate' if int_cov_ratio > 1.5 else '🚨 Weak'})")
+print(f"Return on Assets: {roa*100:.2f}% ({'✅ Excellent' if roa*100 > 5 else '⚠️ Good' if roa*100 > 2 else '🚨 Poor'})")
+print(f"Asset Turnover: {avg_asset_turnover:.3f} ({'✅ Efficient' if avg_asset_turnover > 1.0 else '⚠️ Moderate'})")
+print(f"Inventory Turnover: {invent_turn:.2f} ({'✅ Efficient' if invent_turn > 4 else '⚠️ Monitor' if invent_turn > 2 else '🚨 Slow'})")
+
+# Margin Analysis
+latest_gross_margin = gross_margin_pct[-1]
+latest_net_margin = net_margin_pct[-1]
+avg_gross_margin = np.mean(gross_margin_pct)
+avg_net_margin = np.mean(net_margin_pct)
+
+print(f"\n💰 PROFITABILITY ANALYSIS")
+print("-" * 50)
+print(f"Latest Gross Margin: {latest_gross_margin:.2f}% (Avg: {avg_gross_margin:.2f}%)")
+print(f"Latest Net Margin: {latest_net_margin:.2f}% (Avg: {avg_net_margin:.2f}%)")
+print(f"Margin Trend: {'📈 Improving' if latest_net_margin > avg_net_margin else '📉 Declining'}")
+
+# Growth Momentum
+recent_3yr_turnover_growth = ((np.mean(t_turnover[-3:]) / np.mean(t_turnover[:3])) - 1) * 100
+recent_3yr_profit_growth = ((np.mean(t_nprof[-3:]) / np.mean(t_nprof[:3])) - 1) * 100
+
+print(f"\n🚀 GROWTH MOMENTUM (Recent 3 Years vs First 3 Years)")
+print("-" * 50)
+print(f"Turnover Growth: {recent_3yr_turnover_growth:+.2f}%")
+print(f"Profit Growth: {recent_3yr_profit_growth:+.2f}%")
+print(f"Growth Quality: {'✅ Profitable Growth' if recent_3yr_profit_growth > recent_3yr_turnover_growth else '⚠️ Revenue Growth Outpacing Profit'}")
+
+print("\n" + "="*80)
+print("📋 ANALYSIS COMPLETE - Review charts above for visual insights")
+print("="*80)
