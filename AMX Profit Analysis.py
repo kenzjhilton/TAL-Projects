@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
+
 print("="*100)
 
 # ----- CHECK WORKING DIRECTORY 
@@ -488,3 +489,257 @@ print("\n" + "="*80)
 print("📋 ANALYSIS COMPLETE FOR FILE 2 (2008-2022) - Review charts above for visual insights")
 print("="*80)
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import r2_score, mean_absolute_error
+# ===================================================================
+# FIXED SIMPLE FORECASTING - NO MACHINE LEARNING COMPLEXITY
+# ===================================================================
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+def create_simple_forecast():
+    """
+    Super simple forecasting using basic math - no complex algorithms
+    This will actually work and give you meaningful results!
+    """
+    
+    print("\n📈 SIMPLE & RELIABLE FORECASTING")
+    print("="*50)
+    
+    # STEP 1: Use your existing data
+    try:
+        # Try to use the variables you already calculated
+        years = list(range(2008, 2023))  # 2008 to 2022 (15 years)
+        turnover = t_turnover
+        cogs = t_cogs
+        ebitda = t_ebitda
+        profit = t_nprof
+        print("✅ Using existing data from your analysis")
+        
+    except NameError:
+        # If those don't exist, load from Excel
+        print("📁 Loading data from Excel file...")
+        pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
+        years = list(range(2008, 2023))
+        turnover = pl_usd.iloc[4, 1:16].values.astype(float)
+        cogs = pl_usd.iloc[6, 1:16].values.astype(float)
+        ebitda = pl_usd.iloc[18, 1:16].values.astype(float)
+        profit = pl_usd.iloc[34, 1:16].values.astype(float)
+    
+    # STEP 2: Quick data check
+    print(f"Data loaded: {len(turnover)} years of data")
+    print(f"Years: {years[0]} to {years[-1]}")
+    print(f"Latest turnover: ${turnover[-1]:,.0f}")
+    
+    # STEP 3: Simple forecasting methods (no machine learning!)
+    
+    def method_1_average_growth():
+        """Method 1: Use average growth rate"""
+        # Calculate year-over-year growth rates
+        growth_rates = []
+        for i in range(1, len(turnover)):
+            growth = (turnover[i] - turnover[i-1]) / turnover[i-1]
+            growth_rates.append(growth)
+        
+        avg_growth = np.mean(growth_rates)
+        print(f"Average annual growth rate: {avg_growth*100:.1f}%")
+        
+        # Forecast next 3 years
+        forecasts = []
+        last_value = turnover[-1]
+        
+        for year in range(3):
+            next_value = last_value * (1 + avg_growth)
+            forecasts.append(next_value)
+            last_value = next_value
+        
+        return forecasts, f"Avg Growth ({avg_growth*100:.1f}%/year)"
+    
+    def method_2_recent_trend():
+        """Method 2: Use trend from last 5 years"""
+        recent_years = 5
+        recent_data = turnover[-recent_years:]
+        
+        # Simple linear trend
+        x = np.arange(recent_years)
+        y = recent_data
+        
+        # Calculate slope (trend)
+        slope = (np.sum(x * y) - recent_years * np.mean(x) * np.mean(y)) / (np.sum(x * x) - recent_years * np.mean(x)**2)
+        intercept = np.mean(y) - slope * np.mean(x)
+        
+        print(f"Recent trend: ${slope:,.0f} change per year")
+        
+        # Forecast next 3 years
+        forecasts = []
+        for i in range(3):
+            next_x = recent_years + i
+            forecast = slope * next_x + intercept
+            forecasts.append(forecast)
+        
+        return forecasts, f"Recent Trend (${slope:,.0f}/year)"
+    
+    def method_3_conservative():
+        """Method 3: Conservative estimate (average of last 3 years)"""
+        last_3_avg = np.mean(turnover[-3:])
+        print(f"Last 3 years average: ${last_3_avg:,.0f}")
+        
+        # Assume modest growth
+        modest_growth = 0.02  # 2% per year
+        forecasts = []
+        base_value = last_3_avg
+        
+        for year in range(3):
+            forecast = base_value * (1 + modest_growth) ** (year + 1)
+            forecasts.append(forecast)
+        
+        return forecasts, f"Conservative (2%/year)"
+    
+    # STEP 4: Run all three methods
+    print("\n🔮 GENERATING FORECASTS:")
+    
+    forecast_1, label_1 = method_1_average_growth()
+    forecast_2, label_2 = method_2_recent_trend()
+    forecast_3, label_3 = method_3_conservative()
+    
+    future_years = [2023, 2024, 2025]
+    
+    # STEP 5: Show results
+    print(f"\nFORECAST RESULTS:")
+    print("-" * 40)
+    for i, year in enumerate(future_years):
+        print(f"{year}:")
+        print(f"  {label_1}: ${forecast_1[i]:,.0f}")
+        print(f"  {label_2}: ${forecast_2[i]:,.0f}")
+        print(f"  {label_3}: ${forecast_3[i]:,.0f}")
+        print()
+    
+    # STEP 6: Create clear, working charts
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 10))
+    
+    # Chart 1: Historical data + all forecasts
+    ax1.plot(years, turnover, 'bo-', linewidth=3, markersize=6, label='Historical Data')
+    ax1.plot(future_years, forecast_1, 'r^-', linewidth=2, markersize=8, label=label_1)
+    ax1.plot(future_years, forecast_2, 'gs-', linewidth=2, markersize=8, label=label_2)
+    ax1.plot(future_years, forecast_3, 'mo-', linewidth=2, markersize=8, label=label_3)
+    
+    # Add vertical line to show where forecast starts
+    ax1.axvline(x=2022.5, color='gray', linestyle='--', alpha=0.7, label='Forecast Start')
+    
+    ax1.set_title('Turnover: Historical + 3 Forecasting Methods', fontweight='bold', fontsize=12)
+    ax1.set_ylabel('Turnover (USD)')
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
+    
+    # Chart 2: Focus on recent years + forecasts
+    recent_years_plot = years[-8:] + future_years  # Last 8 years + forecasts
+    recent_data = list(turnover[-8:]) + [None, None, None]
+    
+    ax2.plot(years[-8:], turnover[-8:], 'bo-', linewidth=3, markersize=6, label='Recent Historical')
+    ax2.plot(future_years, forecast_1, 'r^-', linewidth=2, markersize=8, label=label_1)
+    ax2.plot(future_years, forecast_2, 'gs-', linewidth=2, markersize=8, label=label_2)
+    ax2.plot(future_years, forecast_3, 'mo-', linewidth=2, markersize=8, label=label_3)
+    ax2.axvline(x=2022.5, color='gray', linestyle='--', alpha=0.7)
+    
+    ax2.set_title('Recent Years + Forecasts (Zoomed In)', fontweight='bold', fontsize=12)
+    ax2.set_ylabel('Turnover (USD)')
+    ax2.legend()
+    ax2.grid(True, alpha=0.3)
+    
+    # Chart 3: Growth rates over time
+    growth_years = years[1:]
+    growth_rates = []
+    for i in range(1, len(turnover)):
+        growth = ((turnover[i] - turnover[i-1]) / turnover[i-1]) * 100
+        growth_rates.append(growth)
+    
+    ax3.bar(growth_years, growth_rates, alpha=0.7, color='lightblue')
+    ax3.axhline(y=0, color='red', linestyle='-', alpha=0.7)
+    ax3.axhline(y=np.mean(growth_rates), color='green', linestyle='--', alpha=0.7, 
+                label=f'Average: {np.mean(growth_rates):.1f}%')
+    
+    ax3.set_title('Year-over-Year Growth Rates', fontweight='bold', fontsize=12)
+    ax3.set_ylabel('Growth Rate (%)')
+    ax3.legend()
+    ax3.grid(True, alpha=0.3)
+    
+    # Chart 4: All financial metrics trend
+    ax4.plot(years, turnover, 'b-', linewidth=2, label='Turnover', marker='o')
+    ax4.plot(years, cogs, 'r-', linewidth=2, label='COGS', marker='s')
+    ax4.plot(years, ebitda, 'g-', linewidth=2, label='EBITDA', marker='^')
+    ax4.plot(years, profit, 'purple', linewidth=2, label='Net Profit', marker='d')
+    
+    ax4.set_title('All Financial Metrics Trend', fontweight='bold', fontsize=12)
+    ax4.set_ylabel('Amount (USD)')
+    ax4.legend()
+    ax4.grid(True, alpha=0.3)
+    
+    # Improve all chart formatting
+    for ax in [ax1, ax2, ax3, ax4]:
+        ax.tick_params(axis='x', rotation=45)
+        for label in ax.get_xticklabels():
+            label.set_fontsize(9)
+        for label in ax.get_yticklabels():
+            label.set_fontsize(9)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # STEP 7: Summary and recommendations
+    print("\n" + "="*60)
+    print("📊 FORECAST SUMMARY & RECOMMENDATIONS")
+    print("="*60)
+    
+    # Calculate ranges
+    min_2025 = min(forecast_1[2], forecast_2[2], forecast_3[2])
+    max_2025 = max(forecast_1[2], forecast_2[2], forecast_3[2])
+    avg_2025 = np.mean([forecast_1[2], forecast_2[2], forecast_3[2]])
+    
+    print(f"2025 Turnover Forecast Range:")
+    print(f"  📉 Conservative: ${min_2025:,.0f}")
+    print(f"  📊 Average: ${avg_2025:,.0f}")
+    print(f"  📈 Optimistic: ${max_2025:,.0f}")
+    print(f"  📏 Range: ${max_2025 - min_2025:,.0f}")
+    
+    # Business insights
+    current_turnover = turnover[-1]
+    growth_to_2025 = ((avg_2025 - current_turnover) / current_turnover) * 100
+    
+    print(f"\nBusiness Insights:")
+    print(f"  Current (2022): ${current_turnover:,.0f}")
+    print(f"  Expected 3-year growth: {growth_to_2025:+.1f}%")
+    print(f"  Average annual growth needed: {growth_to_2025/3:+.1f}%")
+    
+    if growth_to_2025 > 10:
+        print("  🚀 Forecast suggests strong growth potential")
+    elif growth_to_2025 > 0:
+        print("  📈 Forecast suggests modest growth")
+    else:
+        print("  ⚠️ Forecast suggests potential challenges")
+    
+    return {
+        'historical_data': {'years': years, 'turnover': turnover},
+        'forecasts': {
+            'method_1': forecast_1,
+            'method_2': forecast_2,
+            'method_3': forecast_3
+        },
+        'future_years': future_years
+    }
+
+# Run the simple forecasting
+print("Starting reliable forecasting analysis...")
+try:
+    results = create_simple_forecast()
+    print("✅ Simple forecasting completed successfully!")
+    print("\n💡 This approach is much more reliable than complex machine learning for your data size!")
+    
+except Exception as e:
+    print(f"❌ Error: {e}")
+    print("Please check that your data variables exist or Excel file is accessible")
