@@ -1,4 +1,6 @@
+# ===================================================================
 # ----- IMPORT LIBRARIES 
+# ===================================================================
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,10 +13,11 @@ print("="*100)
 print(os.getcwd()) # Check current directory 
 os.chdir(r'D:\iCloudDrive\2025\TAL\MPC\VCSA\Python')
 print(os.listdir()) # List files 
-
 print("="*100)
 
+# ===================================================================
 # ----- LOAD DATASETS FROM AMX MOTHER FILE 2
+# ===================================================================
 summary = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Summary")
 pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
 bs_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="BS USD")
@@ -29,8 +32,9 @@ cogs = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="cogs")
 tax = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="tax")
 
 print("="*100)
-
+# ===================================================================
 # ----- PREVIEW DATASET 
+# ===================================================================
 print(summary.head(),(summary.shape))
 print(pl_usd.head(),(pl_usd.shape))
 print(bs_usd.head(),(bs_usd.shape))
@@ -45,13 +49,14 @@ print(cogs.head(),(cogs.shape))
 print(tax.head(),(tax.shape))
 
 print("="*100)
-
+# ===================================================================
 # -----  STEP 1: PROFITABILITY ANALYSIS
-
+# ===================================================================
 # Preview P & L statement
 print(pl_usd.head(38),(pl_usd.shape))
-
+# ===================================================================
 # ----- .1. Turnover 
+# ===================================================================
 print(pl_usd.iloc[4:5, :17]) # Helper - Updated for 2008-2022 (15 years)
 # Values - Extract as array, not DataFrame
 t_turnover = pl_usd.iloc[4, 1:16].values.astype(float)  # Updated for 15 years (2008-2022)
@@ -63,7 +68,9 @@ print(f"Average Turnover PY: ${avg_turnover:,.2f}")
 
 print("="*100)
 
+# ===================================================================
 # ----- .2. COGS
+# ===================================================================
 print(pl_usd.iloc[6:7, :17]) # Helper - Updated for 2008-2022
 # Values - Extract as array
 t_cogs = pl_usd.iloc[6, 1:16].values.astype(float)  # Updated for 15 years
@@ -75,7 +82,9 @@ print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
 
 print("="*100)
 
+# ===================================================================
 # ----- .3. Industrial Margin 
+# ===================================================================
 print(pl_usd.iloc[8:9, :17]) # Helper - Updated for 2008-2022
 # Values - Extract as array
 t_im = pl_usd.iloc[8, 1:16].values.astype(float)  # Updated for 15 years
@@ -87,7 +96,9 @@ print(f"Average Industry Margin PY: ${avg_im:,.2f}")
 
 print("="*100)
 
+# ===================================================================
 # ----- .4. EBITDA 
+# ===================================================================
 print(pl_usd.iloc[18:19, :17]) # Helper - Updated for 2008-2022
 # Values - Extract as array
 t_ebitda = pl_usd.iloc[18, 1:16].values.astype(float)  # Updated for 15 years
@@ -99,7 +110,9 @@ print(f"Average EBITDA PY: $ {avg_ebitda:,.2f}")
 
 print("="*100)
 
+# ===================================================================
 # ----- .5. NET PROFIT 
+# ===================================================================
 print(pl_usd.iloc[34:35, :17]) # Helper - Updated for 2008-2022
 # Values - Extract as array
 t_nprof = pl_usd.iloc[34, 1:16].values.astype(float)  # Updated for 15 years
@@ -111,7 +124,10 @@ print(f"Average Profit PY: ${avg_nprof:,.2f}")
 
 print("="*100)
 
+# ===================================================================
 # ----- STEP 2: BREAKDOWN REPORT ANALYSIS 
+# ===================================================================
+
 print((export.head),(export.shape))
 print(export.iloc[167:168, :46]) # Helper - Updated for extended columns
 
@@ -135,9 +151,11 @@ print(f"Average Products Sold PY: ${avg_product_sold:,.2f}")
 print("="*100)
 
 
-
+# ===================================================================
 # ----- STEP 3: Efficiency Ratios 
+# ===================================================================
 #.1. Inventory Turnover 
+# ===================================================================
 print(export.iloc[171:172, 2:44]) # Helper to identify inventory figures
 # Values - Extract as array and match the length with improved error handling
 try:
@@ -160,8 +178,9 @@ invent_turn = (avg_cogs / avg_invent) # formula for inventory efficiency
 print(f"Inventory Turnover Ratio: {invent_turn:,.2f}") # Inventory turnover ratio
 
 print("="*100)
-
+# ===================================================================
 #.2. Asset turnover 
+# ===================================================================
 print(summary.iloc[10:15, 1:18]) # Helper - Updated for extended period
 # Fixed assets
 avg_fixed_asset = summary.iloc[10:11, 3:18].mean().mean()  # Updated for 15 years
@@ -178,8 +197,9 @@ avg_asset_turnover = avg_turnover / avg_total_assets
 print(f"Average Asset Turnover Ratio: {avg_asset_turnover:,.5f}")
 
 print("="*100)
-
+# ===================================================================
 # ----- STEP 4: Liquidity Ratios 
+# ===================================================================
 print(summary.iloc[13:14, 3:18])  # Updated for extended period
 avg_liabilities = summary.iloc[13:14, 3:18].mean().mean()  # Updated for 15 years
 print(f"Total Average Liabilities: ${avg_liabilities:,.2f}")
@@ -188,8 +208,9 @@ liquid_ratio = avg_current_assets / avg_liabilities
 print(f"Current Liquidity Ratio: {liquid_ratio:,.2f}")
 
 print("="*100)
-
+# ===================================================================
 # ----- STEP 5: Coverage Ratios 
+# ===================================================================
 print(summary.iloc[139:140, 4:16])  # Updated for extended period
 int_cov_ratio = summary.iloc[139:140, 4:16].mean().mean()  # Updated for 15 years
 print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
@@ -197,8 +218,9 @@ print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
 # Return on Assets
 roa = avg_nprof / avg_total_assets 
 print(f"Average Return on Asset Ratio: {roa:,.10f}")
-
+# ===================================================================
 # ----- STEP 6: AMX FINANCIAL ANALYSIS SUMMARY (FILE 2)
+# ===================================================================
 print("\n" + "="*50)
 print("AMX FINANCIAL ANALYSIS SUMMARY - FILE 2")
 print("="*50)
@@ -235,8 +257,9 @@ print(f"Total Average Liabilities: ${avg_liabilities:,.2f}")
 print(f"Current Liquidity Ratio: {liquid_ratio:,.2f}")
 print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
 print(f"Average Return on Asset Ratio: {roa:,.10f}")
-
+# ===================================================================
 # -----  STEP 7: COMPREHENSIVE FINANCIAL VISUALIZATIONS (FILE 2)
+# ===================================================================
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(16, 12))
 
 # Top Left: Financial Metrics Overview
@@ -283,9 +306,9 @@ ax4.tick_params(axis='x', rotation=45, labelsize=9)
 
 plt.tight_layout()
 plt.show()
-
+# ===================================================================
 # ----- STEP 8: COMPREHENSIVE TREND ANALYSIS (FILE 2)
-
+# ===================================================================
 # Define years and check data consistency
 years = list(range(2008, 2023))  # Updated for 2008-2022 (15 years)
 
@@ -337,9 +360,9 @@ for ax in [ax1, ax2, ax3, ax4]:
 
 plt.tight_layout()
 plt.show()
-
+# ===================================================================
 # ----- STEP 9: GROWTH ANALYSIS & SUMMARY INSIGHTS (FILE 2)
-
+# ===================================================================
 # Growth Rate Analysis
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
 
@@ -382,8 +405,9 @@ ax2.tick_params(axis='x', rotation=45, labelsize=9)
 
 plt.tight_layout()
 plt.show()
-
+# ===================================================================
 # ----- STEP 10: COMPREHENSIVE SUMMARY STATISTICS (FILE 2)
+# ===================================================================
 print("\n" + "="*80)
 print("COMPREHENSIVE AMX FINANCIAL ANALYSIS SUMMARY - FILE 2 (2008-2022)")
 print("="*80)
