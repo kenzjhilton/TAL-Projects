@@ -23,10 +23,6 @@ library(purrr)
 library(janitor)
 library(tidyr)
 library(writexl)
-
-
-
-
 setwd(choose.dir())
 getwd()
 list.files()
