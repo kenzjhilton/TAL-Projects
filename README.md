@@ -1,2 +1,3 @@
 # TAL-Projects
-Projects regarding TAL private client data analytics
+This repository holds all updated code scripts for TAL private client analytics 
+
