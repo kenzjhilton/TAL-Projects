@@ -11,19 +11,19 @@ print("="*100)
 
 # ----- CHECK WORKING DIRECTORY 
 print(os.getcwd()) # Check current directory 
-os.chdir(r'D:\iCloudDrive\2025\TAL\AMX\Python')
+os.chdir(r'D:\iCloudDrive\2025\TAL\Client\Python')
 print(os.listdir()) # List files 
 print("="*100)
 
 # ===================================================================
-# ----- LOAD DATASETS FROM AMX MOTHER FILE 2
+# ----- LOAD DATASETS FROM Client MOTHER FILE 2
 # ===================================================================
-summary = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Summary")
-pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
-bs_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="BS USD")
-cf_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="CF USD")
-dscr = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="USD-DSCR")
-turnover = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="turnover")
+summary = pd.read_excel("Client MOTHER FILE 2.xlsx", sheet_name="Summary")
+pl_usd = pd.read_excel("Client MOTHER FILE 2.xlsx", sheet_name="PL USD")
+bs_usd = pd.read_excel("Client MOTHER FILE 2.xlsx", sheet_name="BS USD")
+cf_usd = pd.read_excel("Client MOTHER FILE 2.xlsx", sheet_name="CF USD")
+dscr = pd.read_excel("Client MOTHER FILE 2.xlsx", sheet_name="USD-DSCR")
+turnover = pd.read_excel("Client MOTHER FILE 2.xlsx", sheet_name="turnover")
 
 
 print("="*100)
