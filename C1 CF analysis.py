@@ -11,7 +11,7 @@ print("="*100)
 
 # ----- CHECK WORKING DIRECTORY 
 print(os.getcwd()) # Check current directory 
-os.chdir(r'D:\iCloudDrive\2025\TAL\Client\Python')
+os.chdir(r'')
 print(os.listdir()) # List files 
 print("="*100)
 
@@ -128,7 +128,7 @@ print("="*100)
 print("Key Summary Statistics")
 print("="*100)
 
-def print_summary_statistics(): 
+def print_summary_statistics(): # Function to print summary statistics
     print("Actual Revenue:\n", actual_rev)
     print("Actual COGS:\n", actual_cogs)
     print("Actual Operating Costs:\n", actual_op_cost)

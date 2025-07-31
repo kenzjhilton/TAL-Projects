@@ -12,25 +12,25 @@ print("="*100)
 
 # ----- CHECK WORKING DIRECTORY 
 print(os.getcwd()) # Check current directory 
-os.chdir(r'D:\iCloudDrive\2025\TAL\Client \Python')
+os.chdir(r'D:\iCloudDrive\2025\TAL\AMX\Python')
 print(os.listdir()) # List files 
 print("="*100)
 
 # ===================================================================
 # ----- LOAD DATASETS FROM Client  MOTHER FILE 2
 # ===================================================================
-summary = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="Summary")
-pl_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="PL USD")
-bs_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="BS USD")
-cf_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="CF USD")
-funding = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="Detail Invest")
-dscr = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="USD-DSCR")
-payrole = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="Payroll")
-wc = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="WC parameters")
-turnover = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="turnover")
-export = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="break down export")
-cogs = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="cogs")
-tax = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="tax")
+summary = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Summary")
+pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
+bs_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="BS USD")
+cf_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="CF USD")
+funding = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Detail Invest")
+dscr = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="USD-DSCR")
+payrole = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Payroll")
+wc = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="WC parameters")
+turnover = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="turnover")
+export = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="break down export")
+cogs = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="cogs")
+tax = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="tax")
 
 print("="*100)
 # ===================================================================
@@ -505,7 +505,7 @@ def create_simple_forecast():
     # STEP 1: Load data (simplified approach)
     try:
         print("📁 Loading data from Excel file...")
-        pl_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="PL USD")
+        pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
         
         # Get the data from specific rows and columns
         years = list(range(2008, 2023))  # 2008 to 2022 (15 years)
@@ -544,7 +544,7 @@ def create_simple_forecast():
         
     except Exception as e:
         print(f"❌ Error loading data: {e}")
-        print("Please check that 'Client  MOTHER FILE 2.xlsx' exists in the same folder")
+        print("Please check that 'AMX MOTHER FILE 2.xlsx' exists in the same folder")
         return None
     
     # STEP 2: Simple forecasting methods
