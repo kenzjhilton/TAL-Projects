@@ -496,7 +496,7 @@ from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_absolute_error
 # ===================================================================
-# FIXED SIMPLE FORECASTING - NO MACHINE LEARNING COMPLEXITY
+# FIXED SIMPLE FORECASTING 
 # ===================================================================
 
 import pandas as pd
@@ -505,8 +505,7 @@ import matplotlib.pyplot as plt
 
 def create_simple_forecast():
     """
-    Super simple forecasting using basic math - no complex algorithms
-    This will actually work and give you meaningful results!
+    Simple forecasting using basic math 
     """
     
     print("\n📈 SIMPLE & RELIABLE FORECASTING")
