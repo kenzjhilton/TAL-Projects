@@ -4,10 +4,10 @@ from datetime import datetime
 from typing import Dict, List, Tuple
 import matplotlib.pyplot as plt
 
-class AMXSupplyChain:
+class Client SupplyChain:
     """
-    Supply Chain Model for AMX Ammofos (NPK Fertilizer) Production
-    Based on the financial model data from AMX MOTHER FILE 2.xlsx
+    Supply Chain Model for Client  Ammofos (NPK Fertilizer) Production
+    Based on the financial model data from Client  MOTHER FILE 2.xlsx
     """
     
     def __init__(self):
@@ -196,7 +196,7 @@ class AMXSupplyChain:
         demand_forecast = {'domestic': 80, 'export': 90}  # tons
         production_plan = self.optimize_production_plan(demand_forecast)
         
-        print("=== AMX AMMOFOS SUPPLY CHAIN DASHBOARD ===\n")
+        print("=== Client  AMMOFOS SUPPLY CHAIN DASHBOARD ===\n")
         
         print("PRODUCTION PLAN:")
         print(f"Total Production: {production_plan['production_tons']:.1f} tons")
@@ -243,19 +243,19 @@ class AMXSupplyChain:
 # Example usage
 if __name__ == "__main__":
     # Initialize the supply chain model
-    amx_supply_chain = AMXSupplyChain()
+    Client _supply_chain = Client SupplyChain()
     
     # Run the dashboard
-    amx_supply_chain.supply_chain_dashboard()
+    Client _supply_chain.supply_chain_dashboard()
     
     # Example: Calculate requirements for 100 tons production
     print("\n" + "="*50)
     print("EXAMPLE: 100 TONS PRODUCTION REQUIREMENTS")
-    requirements = amx_supply_chain.calculate_material_requirements(100)
+    requirements = Client _supply_chain.calculate_material_requirements(100)
     for material, qty in requirements.items():
         print(f"{material}: {qty:.2f} units")
     
     # Calculate costs
-    costs = amx_supply_chain.calculate_production_cost(100)
+    costs = Client _supply_chain.calculate_production_cost(100)
     print(f"\nTotal Production Cost: {costs['Total Production Cost']:,.0f} UZS")
     print(f"Cost per Ton: {costs['Total Production Cost']/100:,.0f} UZS")
