@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 
 class Client SupplyChain:
     """
-    Supply Chain Model for Client  Ammofos (NPK Fertilizer) Production
-    Based on the financial model data from Client  MOTHER FILE 2.xlsx
+    Supply Chain Model for Client (NPK Fertilizer) Production
+    Based on the financial model data from Client MOTHER FILE 2.xlsx
     """
     
     def __init__(self):
-        # Raw materials and their consumption per ton of Ammofos
+        # Raw materials and their consumption per ton of Client
         self.bom = {
-            'A/Liquid ammonia': 0.321,  # tons per ton of ammofos
+            'A/Liquid ammonia': 0.321,  # tons per ton of Client
             'Б\\Phosphoric concentrate 28%': 1.24,
             'В\\Sulphuric acid, total': 4.254,
             'Electricity': 0.7,  # MWh per ton
@@ -57,7 +57,7 @@ class Client SupplyChain:
         Calculate raw material requirements for given production target
         
         Args:
-            production_target: Target production in tons of Ammofos
+            production_target: Target production in tons of Client
             
         Returns:
             Dictionary of material requirements
@@ -134,8 +134,7 @@ class Client SupplyChain:
             'profit_margin': profit / revenue if revenue > 0 else 0
         }
     
-    def inventory_management(self, current_stock: Dict[str, float], 
-                           lead_times: Dict[str, int]) -> Dict[str, float]:
+    def inventory_management(self, current_stock: Dict[str, float],lead_times: Dict[str, int]) -> Dict[str, float]:
         """
         Calculate optimal inventory levels and reorder points
         
@@ -196,7 +195,7 @@ class Client SupplyChain:
         demand_forecast = {'domestic': 80, 'export': 90}  # tons
         production_plan = self.optimize_production_plan(demand_forecast)
         
-        print("=== Client  AMMOFOS SUPPLY CHAIN DASHBOARD ===\n")
+        print("=== Client  Client SUPPLY CHAIN DASHBOARD ===\n")
         
         print("PRODUCTION PLAN:")
         print(f"Total Production: {production_plan['production_tons']:.1f} tons")

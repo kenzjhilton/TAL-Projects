@@ -12,7 +12,7 @@ print("="*100)
 
 # ----- CHECK WORKING DIRECTORY 
 print(os.getcwd()) # Check current directory 
-os.chdir(r'D:\iCloudDrive\2025\TAL\MPC\VCSA\Python')
+os.chdir(r'')
 print(os.listdir()) # List files 
 print("="*100)
 
