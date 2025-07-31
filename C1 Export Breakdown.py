@@ -1,5 +1,5 @@
 """
-AMX Export Market Analysis Script
+Client Export Market Analysis Script
 Strategic insights from export breakdown data
 Run this in VSCode Python environment
 """
@@ -12,9 +12,9 @@ from typing import Dict, List, Tuple
 import warnings
 warnings.filterwarnings('ignore')
 
-class AMXExportAnalyzer:
+class ClientExportAnalyzer:
     def __init__(self):
-        """Initialize with AMX export data"""
+        """Initialize with Client export data"""
         # Raw export data extracted from Excel "break down export" sheet
         self.export_data = [
             {'market': 'AFGANISTAN', 'product': 'AMM', 'year': 2009, 'tons': 10386, 'usd_per_ton': 284, 'total_usd': 2950000},
@@ -233,7 +233,7 @@ class AMXExportAnalyzer:
     def create_visualizations(self):
         """Create key visualizations"""
         fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-        fig.suptitle('AMX Export Analysis Dashboard', fontsize=16, fontweight='bold')
+        fig.suptitle('Client Export Analysis Dashboard', fontsize=16, fontweight='bold')
         
         # 1. Revenue by Market
         market_revenue = self.df.groupby('market')['total_usd'].sum().sort_values(ascending=False).head(10)
@@ -269,7 +269,7 @@ class AMXExportAnalyzer:
         plt.tight_layout()
         plt.show()
     
-    def export_insights_to_csv(self, filename='amx_export_insights.csv'):
+    def export_insights_to_csv(self, filename='Client_export_insights.csv'):
         """Export detailed insights to CSV for further analysis"""
         # Create comprehensive market analysis
         market_analysis = self.df.groupby(['market', 'product_clean', 'year']).agg({
@@ -286,10 +286,10 @@ class AMXExportAnalyzer:
 
 # Main execution
 if __name__ == "__main__":
-    print("🚀 Starting AMX Export Market Analysis...")
+    print("🚀 Starting Client Export Market Analysis...")
     
     # Initialize analyzer
-    analyzer = AMXExportAnalyzer()
+    analyzer = ClientExportAnalyzer()
     
     # Run all analyses
     print("\n" + "="*80)
