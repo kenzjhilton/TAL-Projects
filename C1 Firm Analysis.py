@@ -12,25 +12,25 @@ print("="*100)
 
 # ----- CHECK WORKING DIRECTORY 
 print(os.getcwd()) # Check current directory 
-os.chdir(r'D:\iCloudDrive\2025\TAL\AMX\Python')
+os.chdir(r'D:\iCloudDrive\2025\TAL\Client \Python')
 print(os.listdir()) # List files 
 print("="*100)
 
 # ===================================================================
-# ----- LOAD DATASETS FROM AMX MOTHER FILE 2
+# ----- LOAD DATASETS FROM Client  MOTHER FILE 2
 # ===================================================================
-summary = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Summary")
-pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
-bs_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="BS USD")
-cf_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="CF USD")
-funding = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Detail Invest")
-dscr = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="USD-DSCR")
-payrole = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="Payroll")
-wc = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="WC parameters")
-turnover = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="turnover")
-export = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="break down export")
-cogs = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="cogs")
-tax = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="tax")
+summary = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="Summary")
+pl_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="PL USD")
+bs_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="BS USD")
+cf_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="CF USD")
+funding = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="Detail Invest")
+dscr = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="USD-DSCR")
+payrole = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="Payroll")
+wc = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="WC parameters")
+turnover = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="turnover")
+export = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="break down export")
+cogs = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="cogs")
+tax = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="tax")
 
 print("="*100)
 # ===================================================================
@@ -220,12 +220,12 @@ print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
 roa = avg_nprof / avg_total_assets 
 print(f"Average Return on Asset Ratio: {roa:,.10f}")
 # ===================================================================
-# ----- STEP 6: AMX FINANCIAL ANALYSIS SUMMARY (FILE 2)
+# ----- STEP 6: Client  FINANCIAL ANALYSIS SUMMARY (FILE 2)
 # ===================================================================
 print("\n" + "="*50)
-print("AMX FINANCIAL ANALYSIS SUMMARY - FILE 2")
+print("Client  FINANCIAL ANALYSIS SUMMARY - FILE 2")
 print("="*50)
-print("AMX FINANCIAL ANALYSIS - Key Values")
+print("Client  FINANCIAL ANALYSIS - Key Values")
 
 print("Turnover values:", t_turnover)
 print("COGS values:", t_cogs)
@@ -237,7 +237,7 @@ print("Inventory values:", t_invent)
 
 print("="*50)
 
-print("AMX FINANCIAL ANALYSIS - Key Averages")
+print("Client  FINANCIAL ANALYSIS - Key Averages")
 print(f"Average Turnover PY: ${avg_turnover:,.2f}") 
 print(f"Average Cost of Goods Sold PY: ${avg_cogs:,.2f}")
 print(f"Average Industry Margin PY: ${avg_im:,.2f}")
@@ -253,7 +253,7 @@ print(f"Average Asset Turnover Ratio: {avg_asset_turnover:,.5f}")
 
 print("="*50)
 
-print("AMX FINANCIAL ANALYSIS - Ratios")
+print("Client  FINANCIAL ANALYSIS - Ratios")
 print(f"Total Average Liabilities: ${avg_liabilities:,.2f}")
 print(f"Current Liquidity Ratio: {liquid_ratio:,.2f}")
 print(f"Average Interest Coverage Ratio: {int_cov_ratio:,.2f}")
@@ -268,7 +268,7 @@ metrics = ['Turnover', 'COGS', 'Industrial Margin', 'EBITDA', 'Net Profit']
 metric_values = [avg_turnover, avg_cogs, avg_im, avg_ebitda, avg_nprof]
 
 ax1.bar(metrics, metric_values, color=['green', 'red', 'grey', 'orange', 'blue'])
-ax1.set_title('AMX Financial Metrics Overview - FILE 2', fontsize=14, fontweight='bold')
+ax1.set_title('Client  Financial Metrics Overview - FILE 2', fontsize=14, fontweight='bold')
 ax1.set_ylabel('Amount (USD)', fontsize=11)
 ax1.tick_params(axis='x', rotation=45, labelsize=9)
 
@@ -286,7 +286,7 @@ ax2.tick_params(axis='x', rotation=45, labelsize=9)
 years = list(range(2008, 2023))  # Updated for 2008-2022 (15 years)
 
 ax3.plot(years, t_turnover, color="green", marker='o', linewidth=2)
-ax3.set_title("AMX Turnover Trend - FILE 2", fontsize=14, fontweight='bold')
+ax3.set_title("Client  Turnover Trend - FILE 2", fontsize=14, fontweight='bold')
 ax3.set_xlabel("Years", fontsize=11)
 ax3.set_ylabel("Turnover USD", fontsize=11)
 ax3.tick_params(axis='x', rotation=45, labelsize=9)
@@ -410,7 +410,7 @@ plt.show()
 # ----- STEP 10: COMPREHENSIVE SUMMARY STATISTICS (FILE 2)
 # ===================================================================
 print("\n" + "="*80)
-print("COMPREHENSIVE AMX FINANCIAL ANALYSIS SUMMARY - FILE 2 (2008-2022)")
+print("COMPREHENSIVE Client  FINANCIAL ANALYSIS SUMMARY - FILE 2 (2008-2022)")
 print("="*80)
 
 # Key Performance Metrics
@@ -505,7 +505,7 @@ def create_simple_forecast():
     # STEP 1: Load data (simplified approach)
     try:
         print("📁 Loading data from Excel file...")
-        pl_usd = pd.read_excel("AMX MOTHER FILE 2.xlsx", sheet_name="PL USD")
+        pl_usd = pd.read_excel("Client  MOTHER FILE 2.xlsx", sheet_name="PL USD")
         
         # Get the data from specific rows and columns
         years = list(range(2008, 2023))  # 2008 to 2022 (15 years)
@@ -544,7 +544,7 @@ def create_simple_forecast():
         
     except Exception as e:
         print(f"❌ Error loading data: {e}")
-        print("Please check that 'AMX MOTHER FILE 2.xlsx' exists in the same folder")
+        print("Please check that 'Client  MOTHER FILE 2.xlsx' exists in the same folder")
         return None
     
     # STEP 2: Simple forecasting methods
