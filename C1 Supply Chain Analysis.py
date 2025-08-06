@@ -242,7 +242,7 @@ class ClientSupplyChain:
 # Example usage
 if __name__ == "__main__":
     # Initialize the supply chain model
-    Clientsupply_chain = Client SupplyChain()
+    Clientsupply_chain = ClientSupplyChain()
     
     # Run the dashboard
     Clientsupply_chain.supply_chain_dashboard()
@@ -250,11 +250,11 @@ if __name__ == "__main__":
     # Example: Calculate requirements for 100 tons production
     print("\n" + "="*50)
     print("EXAMPLE: 100 TONS PRODUCTION REQUIREMENTS")
-    requirements = Client _supply_chain.calculate_material_requirements(100)
+    requirements = Client_supply_chain.calculate_material_requirements(100)
     for material, qty in requirements.items():
         print(f"{material}: {qty:.2f} units")
     
     # Calculate costs
-    costs = Client _supply_chain.calculate_production_cost(100)
+    costs = Client_supply_chain.calculate_production_cost(100)
     print(f"\nTotal Production Cost: {costs['Total Production Cost']:,.0f} UZS")
     print(f"Cost per Ton: {costs['Total Production Cost']/100:,.0f} UZS")
