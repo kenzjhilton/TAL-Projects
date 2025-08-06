@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Dict, List, Tuple
 import matplotlib.pyplot as plt
 
-class Client SupplyChain:
+class ClientSupplyChain:
     """
     Supply Chain Model for Client (NPK Fertilizer) Production
     Based on the financial model data from Client MOTHER FILE 2.xlsx
