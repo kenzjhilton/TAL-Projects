@@ -242,10 +242,10 @@ class ClientSupplyChain:
 # Example usage
 if __name__ == "__main__":
     # Initialize the supply chain model
-    Client _supply_chain = Client SupplyChain()
+    Clientsupply_chain = Client SupplyChain()
     
     # Run the dashboard
-    Client _supply_chain.supply_chain_dashboard()
+    Clientsupply_chain.supply_chain_dashboard()
     
     # Example: Calculate requirements for 100 tons production
     print("\n" + "="*50)
